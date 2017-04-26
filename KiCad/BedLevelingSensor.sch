@@ -1,0 +1,193 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:l9110
+LIBS:BedLevelingSensor-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L ATTINY15-1SC U1
+U 1 1 5900EEC7
+P 4750 3900
+F 0 "U1" H 3950 4300 50  0000 C CNN
+F 1 "ATTINY15-1SC" H 5400 3500 50  0000 C CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 5350 3900 50  0001 C CIN
+F 3 "" H 3950 4250 50  0001 C CNN
+	1    4750 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR5
+U 1 1 5900F042
+P 5750 4150
+F 0 "#PWR5" H 5750 3900 50  0001 C CNN
+F 1 "GND" H 5750 4000 50  0000 C CNN
+F 2 "" H 5750 4150 50  0001 C CNN
+F 3 "" H 5750 4150 50  0001 C CNN
+	1    5750 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR4
+U 1 1 5900F059
+P 5750 3650
+F 0 "#PWR4" H 5750 3500 50  0001 C CNN
+F 1 "VCC" H 5750 3800 50  0000 C CNN
+F 2 "" H 5750 3650 50  0001 C CNN
+F 3 "" H 5750 3650 50  0001 C CNN
+	1    5750 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 5900F086
+P 3200 4000
+F 0 "R1" V 3280 4000 50  0000 C CNN
+F 1 "10K" V 3200 4000 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" V 3130 4000 50  0001 C CNN
+F 3 "" H 3200 4000 50  0001 C CNN
+	1    3200 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR1
+U 1 1 5900F0E9
+P 3200 3850
+F 0 "#PWR1" H 3200 3700 50  0001 C CNN
+F 1 "VCC" H 3200 4000 50  0000 C CNN
+F 2 "" H 3200 3850 50  0001 C CNN
+F 3 "" H 3200 3850 50  0001 C CNN
+	1    3200 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 4150 3750 4150
+$Comp
+L L9110 U2
+U 1 1 5900F432
+P 4800 2250
+F 0 "U2" H 4300 2800 60  0000 C CNN
+F 1 "L9110" H 5000 1700 60  0000 C CNN
+F 2 "SMD_Packages:SOIC-8-N" H 3600 3200 60  0001 C CNN
+F 3 "" H 3600 3200 60  0001 C CNN
+	1    4800 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR3
+U 1 1 5900F614
+P 5500 2550
+F 0 "#PWR3" H 5500 2300 50  0001 C CNN
+F 1 "GND" H 5500 2400 50  0000 C CNN
+F 2 "" H 5500 2550 50  0001 C CNN
+F 3 "" H 5500 2550 50  0001 C CNN
+	1    5500 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR6
+U 1 1 5900F658
+P 5950 1950
+F 0 "#PWR6" H 5950 1700 50  0001 C CNN
+F 1 "GND" H 5950 1800 50  0000 C CNN
+F 2 "" H 5950 1950 50  0001 C CNN
+F 3 "" H 5950 1950 50  0001 C CNN
+	1    5950 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 1950 5500 1950
+$Comp
+L VCC #PWR2
+U 1 1 5900F72C
+P 3600 2150
+F 0 "#PWR2" H 3600 2000 50  0001 C CNN
+F 1 "VCC" H 3600 2300 50  0000 C CNN
+F 2 "" H 3600 2150 50  0001 C CNN
+F 3 "" H 3600 2150 50  0001 C CNN
+	1    3600 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 2150 4000 2150
+Wire Wire Line
+	4000 2150 4000 2350
+Text GLabel 3500 3950 0    60   Input ~ 0
+IA
+Wire Wire Line
+	3750 3950 3500 3950
+Text GLabel 5600 2350 2    60   Input ~ 0
+IA
+Text GLabel 5600 2150 2    60   Input ~ 0
+IB
+Wire Wire Line
+	5600 2150 5500 2150
+Wire Wire Line
+	5600 2350 5500 2350
+Text GLabel 3650 4050 0    60   Input ~ 0
+IB
+Wire Wire Line
+	3750 4050 3650 4050
+$Comp
+L CONN_01X02 J1
+U 1 1 5900FB97
+P 3050 2250
+F 0 "J1" H 3050 2400 50  0000 C CNN
+F 1 "CONN_01X02" V 3150 2250 50  0000 C CNN
+F 2 "Connectors:GS2" H 3050 2250 50  0001 C CNN
+F 3 "" H 3050 2250 50  0001 C CNN
+	1    3050 2250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3250 2200 3300 2200
+Wire Wire Line
+	3300 2200 3300 1950
+Wire Wire Line
+	3300 1950 4000 1950
+Wire Wire Line
+	3250 2300 3300 2300
+Wire Wire Line
+	3300 2300 3300 2550
+Wire Wire Line
+	3300 2550 4000 2550
+$EndSCHEMATC
