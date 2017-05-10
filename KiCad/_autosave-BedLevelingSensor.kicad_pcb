@@ -3,7 +3,7 @@
   (general
     (links 19)
     (no_connects 1)
-    (area 132.004999 106.731999 143.331001 125.932001)
+    (area 130.544 104.64 144.638 126.111001)
     (thickness 1.6)
     (drawings 4)
     (tracks 52)
@@ -64,9 +64,9 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFFFFFF)
     (pcbplotparams
-      (layerselection 0x00030_80000001)
+      (layerselection 0x01000_00000001)
       (usegerberextensions false)
-      (excludeedgelayer true)
+      (excludeedgelayer false)
       (linewidth 0.100000)
       (plotframeref false)
       (viasonmask false)
@@ -83,9 +83,9 @@
       (plotinvisibletext false)
       (padsonsilk false)
       (subtractmaskfromsilk false)
-      (outputformat 1)
+      (outputformat 3)
       (mirror false)
-      (drillshape 1)
+      (drillshape 2)
       (scaleselection 1)
       (outputdirectory ""))
   )
@@ -520,16 +520,14 @@
     (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.508))
     (polygon
       (pts
-        (xy 143.383 126.111) (xy 131.953 126.111) (xy 131.699 105.918) (xy 139.319 105.918) (xy 139.446 112.268)
-        (xy 135.382 112.268) (xy 135.382 121.031) (xy 143.383 121.031)
+        (xy 139.573 112.268) (xy 139.7 121.031) (xy 139.7 126.111) (xy 131.953 126.111) (xy 131.699 105.918)
+        (xy 139.573 105.918)
       )
     )
     (filled_polygon
       (pts
-        (xy 139.316434 112.141) (xy 135.382 112.141) (xy 135.33259 112.151006) (xy 135.290965 112.179447) (xy 135.263685 112.221841)
-        (xy 135.255 112.268) (xy 135.255 121.031) (xy 135.265006 121.08041) (xy 135.293447 121.122035) (xy 135.335841 121.149315)
-        (xy 135.382 121.158) (xy 142.546 121.158) (xy 142.546 125.147) (xy 132.79 125.147) (xy 132.79 106.882)
-        (xy 139.211254 106.882)
+        (xy 139.446 112.268) (xy 139.446013 112.26984) (xy 139.573 121.031943) (xy 139.573 125.147) (xy 132.79 125.147)
+        (xy 132.79 106.882) (xy 139.446 106.882)
       )
     )
   )
@@ -539,14 +537,13 @@
     (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.508))
     (polygon
       (pts
-        (xy 143.51 120.142) (xy 136.398 120.142) (xy 136.398 113.03) (xy 140.335 113.03) (xy 140.335 105.918)
+        (xy 143.51 126.238) (xy 140.335 126.238) (xy 140.335 113.03) (xy 140.335 113.03) (xy 140.335 105.918)
         (xy 143.51 105.918)
       )
     )
     (filled_polygon
       (pts
-        (xy 142.546 120.015) (xy 136.525 120.015) (xy 136.525 113.157) (xy 140.335 113.157) (xy 140.38441 113.146994)
-        (xy 140.426035 113.118553) (xy 140.453315 113.076159) (xy 140.462 113.03) (xy 140.462 106.882) (xy 142.546 106.882)
+        (xy 142.546 125.147) (xy 140.462 125.147) (xy 140.462 106.882) (xy 142.546 106.882)
       )
     )
   )
