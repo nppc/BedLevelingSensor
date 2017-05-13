@@ -1,0 +1,47 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.6</VERSION>
+ <DEVICE>"ATtiny25"</DEVICE>
+ <WORKING_DIR>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.0.79\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.0.79\avrasm\inc\tn25def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\Debug\BedLevelingProbe.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>BedLevelingProbe.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>BedLevelingProbe.map</FILE>
+  <FILE>BedLevelingProbe.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>78</LINE></RESET>
+  <INT0_ISR><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>206</LINE></INT0_ISR>
+  <PCINT0_ISR><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>220</LINE></PCINT0_ISR>
+  <TIM1_OVF_ISR><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>225</LINE></TIM1_OVF_ISR>
+  <MAIN_CLOCK_8MHZ><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>197</LINE></MAIN_CLOCK_8MHZ>
+  <WAIT1MS><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>188</LINE></WAIT1MS>
+  <L1><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>121</LINE></L1>
+  <getPWMdeg><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>145</LINE></getPWMdeg>
+  <pwm_not_90><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>131</LINE></pwm_not_90>
+  <pwm_deg_end><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>141</LINE></pwm_deg_end>
+  <pwm_not_10><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>138</LINE></pwm_not_10>
+  <PWM_end><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>173</LINE></PWM_end>
+  <not10deg><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>153</LINE></not10deg>
+  <not90deg><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>160</LINE></not90deg>
+  <not120deg><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>167</LINE></not120deg>
+  <WAIT100MS><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>176</LINE></WAIT100MS>
+  <wL1><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>180</LINE></wL1>
+  <wL2><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>191</LINE></wL2>
+  <int0_ext><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>215</LINE></int0_ext>
+  <tmovr_ext><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>231</LINE></tmovr_ext>
+  <init_self_test><FILE>C:\git\BedLevelingSensor\ASM\BedLevelingProbe\BedLevelingProbe\main.asm</FILE><LINE>235</LINE></init_self_test>
+ </LABELS>
+</ASSEMBLER_INFO>
