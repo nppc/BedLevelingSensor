@@ -16,7 +16,9 @@
 .def	z1			= r1	; one reg
 .def	pwm_err_cnt	= r2	; counter for overflows of timer1 for detecting failed signal
 .def	sreg_tmp	= r3	; preserve SREG in interrupts
-.def	lastPinState= r4	; Probe pin (0 - up, 1 - down)
+.def	PinState= r4	; Probe pin (0 - up, 1 - down)
+.def	sensorState = r5	; 0 - contacts is Open, 1 - contacts is closed
+.def	errorState	= r6	; 0 - no error, 1 - something went wrong with sensor (blocked or no good contact, or mechanical issue)
 .def	tmp			= r16 	; general temp register
 .def	tmp1		= r17 	; general temp register
 .def	tmp2		= r18 	; general temp register
@@ -40,13 +42,13 @@
  .MACRO PROBE_UP
 		cbi PORTB, COILB_PIN
 		sbi PORTB, COILA_PIN
-		clr lastPinState
+		clr PinState
  .ENDMACRO
 
   .MACRO PROBE_DOWN
 		cbi PORTB, COILA_PIN
 		sbi PORTB, COILB_PIN
-		mov lastPinState, z1
+		mov PinState, z1
  .ENDMACRO
 
  .MACRO LED_ON
@@ -76,7 +78,7 @@ reti	;rjmp USI_START_ISR ; Address 0x000D
 reti	;rjmp USI_OVF_ISR ; Address 0x000E
 
 RESET: ; Main program start
-// config part
+; config part
 		cli
 		ldi tmp, low (RAMEND) ; to top of RAM
 		out SPL,tmp
@@ -87,6 +89,7 @@ RESET: ; Main program start
 		clr pwm_err_cnt
 		clr PWMdeg		; PWM signal is undefined
 		clr PWMval		; PWM signal is undefined
+		clr errorState
 
 		rcall MAIN_CLOCK_8MHZ
 		COIL_OFF
@@ -98,7 +101,7 @@ RESET: ; Main program start
 		sbi DDRB, COILA_PIN
 		sbi DDRB, COILB_PIN
 		LED_OFF
-		; pin change interrupt for PB0 and PB2 (PWM input and sense contacts)
+		; pin change and external interrupt for PB0 and PB2 (PWM input and sense contacts)
 		ldi tmp, (1<<PCIE) | (1<<INT0)
 		out GIMSK, tmp
 		ldi tmp, 1<<PCINT0
@@ -114,35 +117,38 @@ RESET: ; Main program start
 		out TIMSK, tmp
 
 		rcall WAIT1MS ; in case if coil is charged
-		PROBE_UP
+		;PROBE_UP
 		sei
+		rcall init_self_test	; make aself test to ensure sensor working
 
-// main loop
+; main loop
 L1:
-		; check PWM signal
-		rcall getPWMdeg ; updates PWMdeg variable
-		; do something
-		cpi PWMdeg, 90	; pin Up
-		brne pwm_not_90
-		cp lastPinState, z0
-		breq pwm_deg_end	; already up
-		PROBE_UP
-		rjmp pwm_deg_end
-pwm_not_90:
-		cpi PWMdeg, 10	; pin Up
-		brne pwm_not_10
-		cp lastPinState, z1
-		breq pwm_deg_end	; already up
-		PROBE_DOWN
-		rjmp pwm_deg_end
-pwm_not_10:
-
+	
+		rcall doPWM	; check PWM and control pin accordingly
 		
-pwm_deg_end:
+		; check for error state
+		cp errorState, z0
+		brne error_state
+		
+		; if no error, then be ready for normal operation (only control LED for now)
+		sbrc sensorState, z0
+		LED_OFF
+		sbrs sensorState, z1
+		LED_ON
 
 		rjmp L1
 
-// read PWM signal and convert it to degrees (update PWMdeg variable)
+error_state:
+		; we should bling LED indicationg error state
+		WAIT100MS
+		WAIT100MS
+		sbic PinB, LED_PIN
+		LED_ON
+		sbis PinB, LED_PIN
+		LED_OFF
+		rjmp L1
+		
+; read PWM signal and convert it to degrees (update PWMdeg variable)
 getPWMdeg:
 		mov tmp, PWMval ; store it because intrrupt can change it anytime.
 		cpi tmp, 129
@@ -173,6 +179,14 @@ not120deg:
 		ldi PWMdeg, 120
 PWM_end: ; do nothing
 		ret		
+
+WAIT500MS:
+		rcall WAIT100MS
+		rcall WAIT100MS
+		rcall WAIT100MS
+		rcall WAIT100MS
+		rcall WAIT100MS
+		ret
 
 WAIT100MS:  ; routine that creates delay 100ms at 8MHZ
 		ldi  tmp, 5
@@ -218,8 +232,12 @@ int0_ext:
 		out SREG, sreg_tmp
 		reti
 
+; pin change interrupt for sensor contacts sensing
 PCINT0_ISR:
 		in sreg_tmp, SREG
+		clr sensorState ; start with unconnected
+		sbis	PinB, SENSE_PIN	; if pin is High then sensor contacs is not connected
+		mov sensorState, z1	; pin is LOW (means connected)
 		out SREG, sreg_tmp
 		reti
 
@@ -233,6 +251,78 @@ tmovr_ext:
 		out SREG, sreg_tmp
 		reti
 
+doPWM:
+		; check PWM signal
+		rcall getPWMdeg ; updates PWMdeg variable
+		; do something
+		cpi PWMdeg, 90	; pin Up
+		brne pwm_not_90
+		cp PinState, z0
+		breq pwm_deg_end	; already up
+		PROBE_UP
+		rjmp pwm_deg_end
+pwm_not_90:
+		cpi PWMdeg, 10	; pin Down
+		brne pwm_not_10
+		cp PinState, z1
+		breq pwm_deg_end	; already down
+		PROBE_DOWN
+		rjmp pwm_deg_end
+pwm_not_10:
+		cpi PWMdeg, 160	; Alarm Release
+		brne pwm_not_160
+		cp PinState, z0
+		breq pwm_deg_end	; already up
+		PROBE_UP
+		clr errorState	; clear error state
+		LED_ON
+		rjmp pwm_deg_end
+pwm_not_160:
+		; TODO self test
+pwm_deg_end:
+		ret
+		
 init_self_test:
 ; three times up/down
-ret
+		ldi tmp, 3
+init_L: push tmp
+		PROBE_DOWN
+		ldi tmp2, 250	; wait for sensor or 250ms
+init_L1:rcall WAIT1MS
+		cp sensorState, z1
+		breq init_ok
+		dec tmp2
+		brne init_L1
+		rjmp init_error
+init_ok:LED_ON
+		rcall WAIT500MS	; wait another 500ms
+		; check sensor again (should be connected)
+		cp sensorState, z1
+		brne init_error
+		COIL_OFF
+		rcall WAIT1MS
+		PROBE_UP
+		ldi tmp2, 250	; wait for sensor or 250ms
+init_L2:rcall WAIT1MS
+		cp sensorState, z0
+		breq init2_ok
+		dec tmp2
+		brne init_L2
+		rjmp init_error
+init2_ok:LED_OFF
+		rcall WAIT500MS	; wait another 500ms
+		; check sensor again (should be not connected)
+		cp sensorState, z0
+		brne init_error
+		pop tmp
+		dec tmp
+		brne init_L
+		ret		; exit with ok
+		
+init_error:
+		pop tmp ; clear stack
+		; exit with error
+		mov errorState, z1
+		rcall WAIT1MS
+		PROBE_UP
+		ret
